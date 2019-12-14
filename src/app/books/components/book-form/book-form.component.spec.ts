@@ -1,6 +1,9 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { BookFormComponent } from './book-form.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { AngularMaterialModule } from '../../../shared/angular-material.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('BookFormComponent', () => {
   let component: BookFormComponent;
@@ -8,7 +11,8 @@ describe('BookFormComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ BookFormComponent ]
+      declarations: [ BookFormComponent ],
+      imports: [ReactiveFormsModule, AngularMaterialModule, BrowserAnimationsModule]
     })
     .compileComponents();
   }));
@@ -16,6 +20,12 @@ describe('BookFormComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(BookFormComponent);
     component = fixture.componentInstance;
+    component.book = {
+      isbn: '1',
+      title: 'asdf',
+      authors: [],
+      categories: []
+    };
     fixture.detectChanges();
   });
 
