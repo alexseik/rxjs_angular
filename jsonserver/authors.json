@@ -1,0 +1,52 @@
+[
+  {
+    "id": "1",
+    "name": "author 1",
+    "categories": ["kids"]
+  },
+  {
+    "id": "2",
+    "name": "author 2",
+    "categories": ["kids"]
+  },
+  {
+    "id": "3",
+    "name": "author 3",
+    "categories": ["kids"]
+  },
+  {
+    "id": "4",
+    "name": "author 4",
+    "categories": ["kids"]
+  },
+  {
+    "id": "5",
+    "name": "author 5",
+    "categories": ["kids"]
+  },
+  {
+    "i": "6",
+    "name": "author 6",
+    "categories": ["kids"]
+  },
+  {
+    "id": "7",
+    "name": "author7",
+    "categories": ["kids"]
+  },
+  {
+    "id": "8",
+    "name": "author 8",
+    "categories": ["kids"]
+  },
+  {
+    "id": "9",
+    "name": "author 9",
+    "categories": ["kids"]
+  },
+  {
+    "id": "10",
+    "name": "author 10",
+    "categories": ["kids"]
+  }
+]
