@@ -1,0 +1,36 @@
+<form [formGroup]="bookForm" (ngSubmit)="submit()">
+  <mat-form-field>
+    <input matInput placeholder="isbn" formControlName="isbn">
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput placeholder="Título" formControlName="title">
+  </mat-form-field>
+  <div formArrayName="authors">
+    <h3 i18n="book form | authors list title">Autores</h3>
+     <button color="primary" mat-button (click)="addAuthor()" i18n="book form | add author">Añadir</button>
+    <div *ngFor="let author of authors.controls; let i=index">
+      <mat-form-field>
+        <input matInput [formControlName]="i">
+        <button color="primary" mat-button matSuffix mat-icon-button aria-label="Clear" (click)="clearAuthor(i)">
+          <mat-icon>close</mat-icon>
+        </button>
+      </mat-form-field>
+    </div>
+  </div>
+  <div formArrayName="categories">
+    <h3 i18n="book form | categories list title">Categorias</h3>
+     <button color="primary" mat-button (click)="addCategory()" i18n="book form | add category">Añadir</button>
+    <div *ngFor="let author of categories.controls; let i=index">
+      <mat-form-field>
+        <input matInput [formControlName]="i">
+        <button color="primary" mat-button matSuffix mat-icon-button aria-label="Clear" (click)="clearCategory(i)">
+          <mat-icon>close</mat-icon>
+        </button>
+      </mat-form-field>
+    </div>
+  </div>
+  <mat-toolbar class="footer">
+    <button color="primary" mat-button type="submit">Guardar</button>
+    <button color="primary" mat-button (click)="reset()">Reset</button>
+  </mat-toolbar>
+</form>

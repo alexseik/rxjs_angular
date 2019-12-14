@@ -2,6 +2,7 @@ import { NgModule, Optional, SkipSelf } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HeaderComponent } from './header/header.component';
 import { MatButtonModule, MatToolbarModule } from '@angular/material';
+import { RouterModule } from '@angular/router';
 
 
 
@@ -11,6 +12,7 @@ import { MatButtonModule, MatToolbarModule } from '@angular/material';
   ],
   imports: [
     CommonModule,
+    RouterModule,
     MatButtonModule,
     MatToolbarModule
   ],

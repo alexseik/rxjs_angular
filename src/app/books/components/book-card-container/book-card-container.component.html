@@ -1,0 +1,6 @@
+<mat-toolbar color="secondary">
+
+  <span class="title" i18n="books header|toolbar of books">Libros</span>
+
+</mat-toolbar>
+<app-book-card *ngFor="let book of (books$ | async)" [book]="book"></app-book-card>
