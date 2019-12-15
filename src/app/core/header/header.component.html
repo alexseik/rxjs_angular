@@ -4,6 +4,13 @@
 
   <nav>
     <li><a mat-button i18n="@@booksLink" routerLink="/books">Libros</a></li>
-    <li><button mat-button i18n="@@authLink" routerLink="/auth">Login</button></li>
+    <li *ngIf="userService.user$ | async; else login">
+      <button mat-button i18n="@@logoutLink" (click)="userService.logout()">Logout</button>
+    </li>
+    <ng-template #login>
+      <li>
+        <button mat-button i18n="@@loginLink" routerLink="/auth">Login</button>
+      </li>
+    </ng-template>
   </nav>
 </mat-toolbar>

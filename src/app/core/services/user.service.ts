@@ -39,4 +39,9 @@ export class UserService {
       });
   }
 
+  logout() {
+    this.storage.remove('token');
+    this.user$.next(null);
+  }
+
 }
