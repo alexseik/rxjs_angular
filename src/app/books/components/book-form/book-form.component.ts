@@ -59,6 +59,7 @@ export class BookFormComponent implements OnInit, OnChanges {
   }
 
   addAuthor() {
+    console.log('tessstt addAuthor')
     this.authors.push(this.fb.control('', Validators.required));
   }
 

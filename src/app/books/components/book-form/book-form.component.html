@@ -5,10 +5,10 @@
   <mat-form-field>
     <input matInput placeholder="Título" formControlName="title">
   </mat-form-field>
-  <div formArrayName="authors">
+  <div formArrayName="authors" class="authors">
     <h3 i18n="book form | authors list title">Autores</h3>
-     <button color="primary" mat-button (click)="addAuthor()" i18n="book form | add author">Añadir</button>
-    <div *ngFor="let author of authors.controls; let i=index">
+     <button class="add-author" color="primary" mat-button (click)="addAuthor()" i18n="book form | add author">Añadir</button>
+    <div *ngFor="let author of authors.controls; let i=index" class="author-list">
       <mat-form-field>
         <input matInput [formControlName]="i">
         <button color="primary" mat-button matSuffix mat-icon-button aria-label="Clear" (click)="clearAuthor(i)">
@@ -20,7 +20,7 @@
   <div formArrayName="categories">
     <h3 i18n="book form | categories list title">Categorias</h3>
      <button color="primary" mat-button (click)="addCategory()" i18n="book form | add category">Añadir</button>
-    <div *ngFor="let category of categories.controls; let i=index">
+    <div *ngFor="let category of categories.controls; let i=index" class="category-list">
       <mat-form-field>
         <input matInput [formControlName]="i">
         <button color="primary" mat-button matSuffix mat-icon-button aria-label="Clear" (click)="clearCategory(i)">
