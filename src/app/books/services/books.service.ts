@@ -6,7 +6,7 @@ import { Book } from '../models/book';
 import { Author } from '../models/author';
 import { Category } from '../models/category';
 
-const BOOKS_API = 'http://localhost:3000/api/books';
+// const BOOKS_API = 'http://localhost:3000/api/books';
 const AUTHORS_API = 'http://localhost:3000/api/authors';
 
 @Injectable({
@@ -14,10 +14,13 @@ const AUTHORS_API = 'http://localhost:3000/api/authors';
 })
 export class BooksService implements OnDestroy {
 
+  readonly BOOKS_API = 'http://localhost:3000/api/books';
+
+  // Outputs
   filteredBooks$ = new BehaviorSubject<Book[]>([]);
   filteredAuthors$ = new BehaviorSubject<Author[]>([]);
-  // filteredCategory$ = new BehaviorSubject<Category[]>([]);
-
+  filteredCategory$ = new BehaviorSubject<Category[]>([]);
+  // Inputs
   titleChange$ = new BehaviorSubject<string>('');
   authorChange$ = new BehaviorSubject<string>('');
   categoryChange$ = new BehaviorSubject<string>('');
@@ -36,9 +39,9 @@ export class BooksService implements OnDestroy {
     ]).pipe(
       map(([books, title, author, category]) => this.filter(books, title, author, category)),
       takeUntil(this.destroy$)
-    ).subscribe(data => this.filteredBooks$.next(data));
+    ).subscribe(this.filteredBooks$);
 
-    // Filtered authors stream
+    // Filtered Authors stream
     combineLatest([
       this.authors$,
       this.authorChange$
@@ -48,6 +51,28 @@ export class BooksService implements OnDestroy {
       }),
       takeUntil(this.destroy$)
     ).subscribe(this.filteredAuthors$);
+
+    // Filtered Category stream. Filter by categoryChanges$ and filteredAuthors$
+    combineLatest([
+      this.books$,
+      this.filteredAuthors$,
+      this.authorChange$,
+      this.categoryChange$
+    ]).pipe(
+      map(([books, authors, authorFilter, categoryFilter]) => {
+        const allBooksCategories = books
+          .reduce((previous, current) => previous.concat(...current.categories), [])
+          .map(c => c.name);
+        const allAuthorCategories = authors.reduce((previous, current) => previous.concat(...current.categories), []);
+        if (authorFilter !== '') {
+          return allAuthorCategories
+            .filter((category, index) => index === allAuthorCategories.indexOf(category) && category.includes(categoryFilter));
+        }
+        return allBooksCategories
+          .filter((category, index) => index === allBooksCategories.indexOf(category) && category.includes(categoryFilter));
+      }),
+      takeUntil(this.destroy$)
+    ).subscribe(this.filteredCategory$);
   }
 
   ngOnDestroy(): void {
@@ -57,7 +82,7 @@ export class BooksService implements OnDestroy {
 
   getBooks(): void {
     combineLatest([
-      this.http.get(BOOKS_API) as Observable<any>,
+      this.http.get(this.BOOKS_API) as Observable<any>,
       this.http.get(AUTHORS_API) as Observable<any>
     ]).pipe(
       map(([booksResponse, authorsResponse]) => {
@@ -78,7 +103,7 @@ export class BooksService implements OnDestroy {
       isbn: book.isbn,
       title: book.title,
       authors: authors.filter(author => book.authors.includes(author.id)),
-      categories: book.categories.map(c => ({ name: c }))
+      categories: book.categories.map(c => ({name: c}))
     };
     return newBook;
   }

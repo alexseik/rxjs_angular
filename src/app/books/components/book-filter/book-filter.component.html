@@ -17,8 +17,8 @@
   <mat-form-field>
     <input type="text" matInput [matAutocomplete]="categoryAutocomplete" formControlName="category" placeholder="categoria">
     <mat-autocomplete #categoryAutocomplete>
-      <mat-option *ngFor="let option of categories" [value]="option">
-        {{ option }}
+      <mat-option *ngFor="let category of booksService.filteredCategory$ | async" [value]="category">
+        {{ category }}
       </mat-option>
     </mat-autocomplete>
   </mat-form-field>
