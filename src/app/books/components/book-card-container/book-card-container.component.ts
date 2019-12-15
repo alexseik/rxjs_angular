@@ -21,7 +21,7 @@ export class BookCardContainerComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.booksService.destroy$.next();
+    // this.booksService.destroy$.next();
   }
 
 }

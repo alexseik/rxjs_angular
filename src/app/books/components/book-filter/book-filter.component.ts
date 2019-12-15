@@ -21,7 +21,7 @@ export class BookFilterComponent implements OnInit {
     'category 2'
   ];
 
-  constructor(private fb: FormBuilder, private bookService: BooksService) {
+  constructor(private fb: FormBuilder, public booksService: BooksService) {
   }
 
   ngOnInit() {
@@ -30,9 +30,9 @@ export class BookFilterComponent implements OnInit {
       category: [''],
       title: ['']
     });
-    this.bookFilter.get('title').valueChanges.subscribe(this.bookService.titleChange$);
-    this.bookFilter.get('author').valueChanges.subscribe(this.bookService.authorChange$);
-    this.bookFilter.get('category').valueChanges.subscribe(this.bookService.categoryChange$);
+    this.bookFilter.get('title').valueChanges.subscribe(this.booksService.titleChange$);
+    this.bookFilter.get('author').valueChanges.subscribe(this.booksService.authorChange$);
+    this.bookFilter.get('category').valueChanges.subscribe(this.booksService.categoryChange$);
   }
 
 }
