@@ -22,7 +22,6 @@ export class LoginComponent implements OnInit {
   }
 
   submit() {
-    debugger
     if (this.loginForm.valid) {
       const creds = this.loginForm.value as RequestAuth;
       this.userService.login(creds);
