@@ -7,6 +7,12 @@
   </mat-card-subtitle>
 </mat-card-header>
 <mat-card-content>
-  <div>Authors</div>
-  <div>Categories</div>
+  <div>
+    <span>Authors: </span>
+    <span *ngFor="let author of book.authors; let i = index">{{ i > 0 ? ',' : ''}} {{author.name}}</span>
+  </div>
+  <div>
+    <span>Categories: </span>
+    <span *ngFor="let category of book.categories; let i = index">{{ i > 0 ? ',' : ''}} {{category.name}}</span>
+  </div>
 </mat-card-content>

@@ -4,6 +4,7 @@ import { HeaderComponent } from './header.component';
 import { MatToolbarModule } from '@angular/material';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterTestingModule } from '@angular/router/testing';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 
 describe('HeaderComponent', () => {
   let component: HeaderComponent;
@@ -16,7 +17,8 @@ describe('HeaderComponent', () => {
         MatToolbarModule,
         HttpClientModule,
         RouterTestingModule
-      ]
+      ],
+      schemas: [ NO_ERRORS_SCHEMA ]
     })
     .compileComponents();
   }));

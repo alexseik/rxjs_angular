@@ -6,9 +6,7 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CoreModule } from './core/core.module';
 import { HttpClientModule } from '@angular/common/http';
-import { environment } from 'src/environments/environment';
-import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
-import { InMemoryBooksService } from './core/services/in-memory-books.service';
+import { MatSidenavModule } from '@angular/material';
 
 @NgModule({
   declarations: [
@@ -20,6 +18,7 @@ import { InMemoryBooksService } from './core/services/in-memory-books.service';
     BrowserAnimationsModule,
     HttpClientModule,
     CoreModule,
+    MatSidenavModule
     /*HttpClientInMemoryWebApiModule.forRoot(InMemoryBooksService)*/
   ],
   providers: [],

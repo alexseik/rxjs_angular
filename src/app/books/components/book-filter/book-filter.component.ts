@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { BooksService } from '../../services/books.service';
 
 @Component({
   selector: 'app-book-filter',
@@ -20,7 +21,7 @@ export class BookFilterComponent implements OnInit {
     'category 2'
   ];
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private bookService: BooksService) {
   }
 
   ngOnInit() {
@@ -29,6 +30,9 @@ export class BookFilterComponent implements OnInit {
       category: [''],
       title: ['']
     });
+    this.bookFilter.get('title').valueChanges.subscribe(this.bookService.titleChange$);
+    this.bookFilter.get('author').valueChanges.subscribe(this.bookService.authorChange$);
+    this.bookFilter.get('category').valueChanges.subscribe(this.bookService.categoryChange$);
   }
 
 }

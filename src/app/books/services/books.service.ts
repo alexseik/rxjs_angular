@@ -14,9 +14,25 @@ export class BooksService implements OnDestroy {
 
   books$ = new BehaviorSubject<Book[]>([]);
 
+  filteredBooks$ = new BehaviorSubject<Book[]>([]);
+
+  titleChange$ = new BehaviorSubject<string>('');
+  authorChange$ = new BehaviorSubject<string>('');
+  categoryChange$ = new BehaviorSubject<string>('');
+
   destroy$ = new Subject<any>();
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+    combineLatest([
+      this.books$,
+      this.titleChange$,
+      this.authorChange$,
+      this.categoryChange$
+    ]).pipe(
+      map(([books, title, author, category]) => this.filter(books, title, author, category)),
+      takeUntil(this.destroy$)
+    ).subscribe(data => this.filteredBooks$.next(data));
+  }
 
   ngOnDestroy(): void {
     this.destroy$.next();
@@ -40,9 +56,19 @@ export class BooksService implements OnDestroy {
       isbn: book.isbn,
       title: book.title,
       authors: authors.filter(author => book.authors.includes(author.id)),
-      categories: book.categories
+      categories: book.categories.map(c => ({ name: c }))
     };
     return newBook;
+  }
+
+  private filter(books: Book[], title, author, category) {
+    const filtered = books.filter(book => {
+      const hasTitle = book.title.includes(title);
+      const hasAuthors = book.authors.map(a => a.name).filter(a => a.includes(author)).length > 0;
+      const hasCategory = book.categories.filter(c => c.name.includes(category));
+      return hasTitle && hasAuthors && hasCategory;
+    });
+    return filtered;
   }
 
 }

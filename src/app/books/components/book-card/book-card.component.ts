@@ -18,4 +18,11 @@ export class BookCardComponent implements OnInit {
   ngOnInit() {
   }
 
+  isEditing() {
+    return this.mode === 'EDIT';
+  }
+
+  changeMode(mode) {
+    this.mode = mode;
+  }
 }

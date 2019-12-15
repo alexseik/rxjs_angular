@@ -81,30 +81,26 @@ export class BookFormComponent implements OnInit, OnChanges {
       title: this.model.title
     });
     this.authors.controls = [];
-    this.model.authors.forEach(author => {
-      const controls = this.authors.controls.map(c => c.value);
-      const exist = controls.indexOf(author.name);
-      if (exist > -1) {
-        this.authors.at(exist).setValue(author.name);
-      } else {
-        this.authors.push(this.fb.control(author.name, Validators.required));
-      }
-    });
     this.categories.controls = [];
-    this.model.categories.forEach(category => {
-      const controls = this.categories.controls.map(c => c.value);
-      const exist = controls.indexOf(category);
-      if (exist > -1) {
-        this.categories.at(exist).setValue(category);
-      } else {
-        this.categories.push(this.fb.control(category, Validators.required));
-      }
-    });
+    this.createOrUpdateControl(this.model, 'authors');
+    this.createOrUpdateControl(this.model, 'categories');
   }
 
   private authorEmptyValidator: ValidatorFn = (control: FormGroup): ValidationErrors | null => {
     const authors = control.get('authors');
     return authors.valid ? null : { previousAuthorInvalid: true };
+  }
+
+  private createOrUpdateControl(model, propName) {
+    model[propName].forEach(prop => {
+      const controls = this.categories.controls.map(c => c.value);
+      const exist = controls.indexOf(prop.name);
+      if (exist > -1) {
+        this.categories.at(exist).setValue(prop.name);
+      } else {
+        this.categories.push(this.fb.control(prop.name, Validators.required));
+      }
+    });
   }
 
 }

@@ -3,6 +3,8 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { AppComponent } from './app.component';
 import { CoreModule } from './core/core.module';
 import { HttpClientModule } from '@angular/common/http';
+import { MatSidenavModule } from '@angular/material';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('AppComponent', () => {
   beforeEach(async(() => {
@@ -10,7 +12,9 @@ describe('AppComponent', () => {
       imports: [
         RouterTestingModule,
         HttpClientModule,
-        CoreModule
+        CoreModule,
+        MatSidenavModule,
+        NoopAnimationsModule
       ],
       declarations: [
         AppComponent
