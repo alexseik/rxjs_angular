@@ -1,7 +1,7 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnDestroy } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, combineLatest, Observable, Subject } from 'rxjs';
-import { map, switchMap, takeUntil } from 'rxjs/operators';
+import { map, takeUntil } from 'rxjs/operators';
 import { Book } from '../models/book';
 
 const BOOKS_API = 'http://localhost:3000/api/books';
@@ -10,13 +10,18 @@ const AUTHORS_API = 'http://localhost:3000/api/authors';
 @Injectable({
   providedIn: 'root'
 })
-export class BooksService {
+export class BooksService implements OnDestroy {
 
   books$ = new BehaviorSubject<Book[]>([]);
 
   destroy$ = new Subject<any>();
 
   constructor(private http: HttpClient) { }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
+  }
 
   getBooks(): void {
     combineLatest([

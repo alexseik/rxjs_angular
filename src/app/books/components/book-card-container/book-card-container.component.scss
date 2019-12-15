@@ -1,4 +1,7 @@
 :host {
   display: flex;
   flex-wrap: wrap;
+  mat-toolbar {
+    height: 5.5rem;
+  }
 }

@@ -1,0 +1,10 @@
+:host {
+  flex: 1 1 auto;
+}
+form {
+  display: flex;
+  justify-content: flex-end;
+  mat-form-field {
+    padding: 0 1rem;
+  }
+}

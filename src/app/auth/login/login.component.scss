@@ -1,0 +1,12 @@
+:host {
+  display: flex;
+  justify-content: center;
+  mat-card {
+    max-width: 500px;
+    margin: 4rem;
+    form {
+      display: flex;
+      flex-direction: column;
+    }
+  }
+}

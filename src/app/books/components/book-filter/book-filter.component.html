@@ -1,0 +1,25 @@
+<form [formGroup]="bookFilter">
+  <!-- TITLE -->
+  <mat-form-field>
+    <input type="text" matInput formControlName="title" placeholder="titulo">
+  </mat-form-field>
+  <!-- AUTHOR -->
+  <mat-form-field>
+    <input type="text" matInput [matAutocomplete]="authorAutocomplete" formControlName="author" placeholder="autor">
+      <mat-autocomplete #authorAutocomplete>
+        <mat-option *ngFor="let option of authors" [value]="option">
+          {{ option }}
+        </mat-option>
+      </mat-autocomplete>
+  </mat-form-field>
+
+  <!-- CATEGORY -->
+  <mat-form-field>
+    <input type="text" matInput [matAutocomplete]="categoryAutocomplete" formControlName="category" placeholder="categoria">
+    <mat-autocomplete #categoryAutocomplete>
+      <mat-option *ngFor="let option of categories" [value]="option">
+        {{ option }}
+      </mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
+</form>

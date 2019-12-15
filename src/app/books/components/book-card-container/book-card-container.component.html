@@ -2,5 +2,7 @@
 
   <span class="title" i18n="books header|toolbar of books">Libros</span>
 
+  <app-book-filter></app-book-filter>
+
 </mat-toolbar>
 <app-book-card *ngFor="let book of (books$ | async)" [book]="book"></app-book-card>
