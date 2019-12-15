@@ -5,6 +5,9 @@ import { BookFormComponent } from '../book-form/book-form.component';
 import { AngularMaterialModule } from '../../../shared/angular-material.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { BookInfoComponent } from '../book-info/book-info.component';
+import { HttpClientModule } from '@angular/common/http';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('BookCardComponent', () => {
   let component: BookCardComponent;
@@ -12,8 +15,8 @@ describe('BookCardComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [BookCardComponent, BookFormComponent],
-      imports: [ReactiveFormsModule, AngularMaterialModule, BrowserAnimationsModule]
+      declarations: [BookCardComponent, BookFormComponent, BookInfoComponent],
+      imports: [ReactiveFormsModule, AngularMaterialModule, BrowserAnimationsModule, HttpClientModule, RouterTestingModule]
     })
       .compileComponents();
   }));

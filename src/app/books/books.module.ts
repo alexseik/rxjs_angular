@@ -7,6 +7,7 @@ import { SharedModule } from '../shared/shared.module';
 import { AngularMaterialModule } from '../shared/angular-material.module';
 import { HttpClientModule } from '@angular/common/http';
 import { BookFilterComponent } from './components/book-filter/book-filter.component';
+import { BookInfoComponent } from './components/book-info/book-info.component';
 
 
 
@@ -15,7 +16,8 @@ import { BookFilterComponent } from './components/book-filter/book-filter.compon
     BookCardContainerComponent,
     BookCardComponent,
     BookFormComponent,
-    BookFilterComponent
+    BookFilterComponent,
+    BookInfoComponent
   ],
   imports: [
     SharedModule,

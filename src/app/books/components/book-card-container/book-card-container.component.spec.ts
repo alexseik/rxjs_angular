@@ -8,6 +8,7 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { BookFormComponent } from '../book-form/book-form.component';
 import { HttpClientModule } from '@angular/common/http';
 import { BookFilterComponent } from '../book-filter/book-filter.component';
+import { BookInfoComponent } from '../book-info/book-info.component';
 
 describe('BookCardContainerComponent', () => {
   let component: BookCardContainerComponent;
@@ -15,7 +16,7 @@ describe('BookCardContainerComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [BookCardContainerComponent, BookCardComponent, BookFormComponent, BookFilterComponent, BookFilterComponent],
+      declarations: [BookCardContainerComponent, BookCardComponent, BookFormComponent, BookFilterComponent, BookInfoComponent],
       imports: [ReactiveFormsModule, AngularMaterialModule, NoopAnimationsModule, HttpClientModule]
     })
       .compileComponents();

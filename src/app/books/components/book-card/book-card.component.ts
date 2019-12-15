@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Book } from '../../models/book';
+import { UserService } from '../../../core/services/user.service';
 
 @Component({
   selector: 'app-book-card',
@@ -12,7 +13,7 @@ export class BookCardComponent implements OnInit {
 
   mode: 'EDIT' | 'VIEW' = 'VIEW';
 
-  constructor() { }
+  constructor(private userService: UserService) { }
 
   ngOnInit() {
   }
