@@ -1,0 +1,16 @@
+<p>
+  <button mat-button (click)="nuevoObservable()">Test Nuevo</button>
+
+  <button mat-button (click)="timers()">Test Timers</button>
+
+  <button mat-button (click)="stopTimers()">Parar Timers</button>
+</p>
+
+<mat-form-field class="container">
+  <input matInput id="range" type="number" />
+  <span matSuffix>{{currentNumber}}</span>
+</mat-form-field>
+
+<p>
+  <button color="primary" mat-button (click)="manualMulticasting()">Manual Multicasting</button>
+</p>

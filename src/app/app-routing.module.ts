@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule, PreloadAllModules } from '@angular/router';
+import { FilmsComponent } from './films/components/films/films.component';
 
 
 const routes: Routes = [
@@ -15,6 +16,10 @@ const routes: Routes = [
   {
     path: 'books',
     loadChildren: () => import('./books/books.module').then(mod => mod.BooksModule)
+  },
+  {
+    path: 'films',
+    component: FilmsComponent
   }
 ];
 
