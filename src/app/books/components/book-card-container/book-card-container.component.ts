@@ -17,7 +17,6 @@ export class BookCardContainerComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.books$ = this.booksService.filteredBooks$;
-    this.booksService.filteredBooks$.subscribe(libros => console.log('libri', libros));
     this.booksService.getBooks();
   }
 
