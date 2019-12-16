@@ -1,5 +1,5 @@
 export interface Author {
-  id: string;
+  id?: string;
   name: string;
-  categories: string[];
+  categories?: string[];
 }
