@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 import { HeaderComponent } from './header/header.component';
 import { MatButtonModule, MatToolbarModule } from '@angular/material';
 import { RouterModule } from '@angular/router';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthenticationInterceptor } from './interceptors/authentication.interceptor';
 
 
 
@@ -14,7 +16,10 @@ import { RouterModule } from '@angular/router';
     CommonModule,
     RouterModule,
     MatButtonModule,
-    MatToolbarModule
+    MatToolbarModule,
+  ],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: AuthenticationInterceptor, multi: true }
   ],
   exports: [
     HeaderComponent

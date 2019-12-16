@@ -5,7 +5,7 @@ import { User } from '../models/user';
 import { AccessToken, RequestAuth } from '../models/auth';
 import { environment } from '../../../environments/environment';
 import { switchMap, takeUntil } from 'rxjs/operators';
-import { SESSION_STORAGE, StorageService } from 'ngx-webstorage-service';
+import { SESSION_STORAGE, StorageService, LOCAL_STORAGE } from 'ngx-webstorage-service';
 import { Router } from '@angular/router';
 
 export const AUTH_URL = 'auth/login';
@@ -20,7 +20,7 @@ export class UserService {
 
   private destroy$ = new Subject<any>();
 
-  constructor(private http: HttpClient, @Inject(SESSION_STORAGE) private storage: StorageService, private router: Router) {
+  constructor(private http: HttpClient, @Inject(LOCAL_STORAGE) private storage: StorageService, private router: Router) {
   }
 
   login(creds: RequestAuth) {

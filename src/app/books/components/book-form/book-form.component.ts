@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, OnChanges, SimpleChanges, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, OnChanges, SimpleChanges, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormArray, ValidatorFn, ValidationErrors } from '@angular/forms';
 import { Book } from '../../models/book';
 
@@ -6,7 +6,8 @@ import { Book } from '../../models/book';
 @Component({
   selector: 'app-book-form',
   templateUrl: './book-form.component.html',
-  styleUrls: ['./book-form.component.scss']
+  styleUrls: ['./book-form.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class BookFormComponent implements OnInit, OnChanges {
 
@@ -30,6 +31,7 @@ export class BookFormComponent implements OnInit, OnChanges {
     if (this.book) {
       this.updateModel(this.book);
     }
+    // this.authors.valueChanges.subscribe(v => 'authors change');
   }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -94,12 +96,12 @@ export class BookFormComponent implements OnInit, OnChanges {
 
   private createOrUpdateControl(model, propName) {
     model[propName].forEach(prop => {
-      const controls = this.categories.controls.map(c => c.value);
+      const controls = this[propName].controls.map(c => c.value);
       const exist = controls.indexOf(prop.name);
       if (exist > -1) {
-        this.categories.at(exist).setValue(prop.name);
+        this[propName].at(exist).setValue(prop.name);
       } else {
-        this.categories.push(this.fb.control(prop.name, Validators.required));
+        this[propName].push(this.fb.control(prop.name, Validators.required));
       }
     });
   }

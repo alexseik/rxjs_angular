@@ -8,16 +8,17 @@ import {
 import { Inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
-import { SESSION_STORAGE, StorageService } from 'ngx-webstorage-service';
+import { SESSION_STORAGE, StorageService, LOCAL_STORAGE } from 'ngx-webstorage-service';
 
 @Injectable()
 export class AuthenticationInterceptor implements HttpInterceptor {
   // token: string;
-  constructor(@Inject(SESSION_STORAGE) private storage: StorageService) {
+  constructor(@Inject(LOCAL_STORAGE) private storage: StorageService) {
 
   }
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+    debugger
     if (this.needAuth(request.url, request.method)) {
       request = request.clone({
         setHeaders: {
