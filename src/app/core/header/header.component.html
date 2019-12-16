@@ -10,7 +10,7 @@
     </li>
     <ng-template #login>
       <li>
-        <button mat-button i18n="@@loginLink" routerLink="/auth">Login</button>
+        <button mat-button i18n="@@loginLink" (click)="showLogin()">Login</button>
       </li>
     </ng-template>
   </nav>

@@ -10,4 +10,5 @@ export interface Auth {
 
 export interface AccessToken {
   access_token: string;
+  id: string;
 }

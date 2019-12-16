@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { UserService } from '../services/user.service';
+
 
 @Component({
   selector: 'app-header',
@@ -8,9 +9,15 @@ import { UserService } from '../services/user.service';
 })
 export class HeaderComponent implements OnInit {
 
+  @Output() login = new EventEmitter<boolean>();
+
   constructor(public userService: UserService) { }
 
   ngOnInit() {
+  }
+
+  showLogin() {
+    this.login.emit(true);
   }
 
 }

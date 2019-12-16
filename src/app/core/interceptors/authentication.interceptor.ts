@@ -18,7 +18,6 @@ export class AuthenticationInterceptor implements HttpInterceptor {
   }
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    debugger
     if (this.needAuth(request.url, request.method)) {
       request = request.clone({
         setHeaders: {

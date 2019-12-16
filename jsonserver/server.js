@@ -33,6 +33,14 @@ function isAuthenticated({ email, password }) {
   return userdb.findIndex(user => user.email === email && user.password === password) !== -1;
 }
 
+function getUser({ email, password }) {
+  const index = userdb.findIndex(user => user.email === email && user.password === password);
+  if (index > -1) {
+    return userdb[index];
+  }
+  return null;
+}
+
 function userExist(email) {
   return userdb.findIndex(user => user.email === email) !== -1;
 }
@@ -50,14 +58,15 @@ function paginate(payload, array) {
 
 server.post('/auth/login', (req, res) => {
   const { email, password } = req.body;
-  if (isAuthenticated({ email, password }) === false) {
+  const user = getUser({ email, password });
+  if (!user) {
     const status = 401;
     const message = 'Incorrect email or password';
     res.status(status).json({ status, message });
     return;
   }
   const access_token = createToken({ email, password });
-  res.status(200).json({ access_token });
+  res.status(200).json({ access_token, ...user });
 });
 
 server.post('/auth/recover', (req, res) => {
@@ -96,6 +105,27 @@ server.use(/^(?!\/auth).*$/, (req, res, next) => {
   }
 });
 */
+server.use(/^(?!\/auth).*$/,function (req, res, next) {
+  if (req.headers.authorization === undefined) {
+    if (req.method === 'GET') {
+      next();
+      return;
+    }
+    const status = 401;
+    const message = 'Error in authorization format';
+    res.status(status).json({ status, message });
+    return;
+  }
+  try {
+    verifyToken(req.headers.authorization.split(' ')[1]);
+    next();
+  } catch (err) {
+    const status = 401;
+    const message = 'Error access_token is revoked';
+    res.status(status).json({ status, message });
+  }
+});
+
 server.use('/api', router);
 
 server.listen(3000, () => {

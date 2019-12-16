@@ -9,6 +9,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { MatSidenavModule } from '@angular/material';
 import { FilmsModule } from './films/films.module';
 import { AuthenticationInterceptor } from './core/interceptors/authentication.interceptor';
+import { AuthModule } from './auth/auth.module';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { AuthenticationInterceptor } from './core/interceptors/authentication.in
     HttpClientModule,
     CoreModule,
     MatSidenavModule,
+    AuthModule,
     FilmsModule,
     /*[
       { provide: HTTP_INTERCEPTORS, useClass: AuthenticationInterceptor, multi: true },

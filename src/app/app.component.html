@@ -1,5 +1,7 @@
-<app-header></app-header>
+<app-header (login)="toggleLogin($event)"></app-header>
 <mat-sidenav-container>
-  <mat-sidenav position="end">End</mat-sidenav>
+  <mat-sidenav #sidenav [opened]="loginOpen" position="end" mode="side">
+    <app-login></app-login>
+  </mat-sidenav>
   <router-outlet></router-outlet>
 </mat-sidenav-container>

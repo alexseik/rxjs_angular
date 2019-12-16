@@ -10,8 +10,11 @@ import { AngularMaterialModule } from '../shared/angular-material.module';
   declarations: [LoginComponent],
   imports: [
     SharedModule,
-    AuthRoutingModule,
+    // AuthRoutingModule,
     AngularMaterialModule
+  ],
+  exports: [
+    LoginComponent
   ]
 })
 export class AuthModule { }

@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { UserService } from './core/services/user.service';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +8,17 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'rxjs';
+  loginOpen = false;
+
+  constructor(userService: UserService) {
+    userService.user$.subscribe(user => {
+      if (user) {
+        this.loginOpen = false;
+      }
+    });
+  }
+
+  toggleLogin() {
+    this.loginOpen = !this.loginOpen;
+  }
 }
