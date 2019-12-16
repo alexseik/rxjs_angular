@@ -42,11 +42,11 @@ export class AuthenticationInterceptor implements HttpInterceptor {
 
   private needAuth(url, method) {
     const needUrl = (
-      url === `${environment.ENDPOINT}/books`
+      url.includes(`${environment.ENDPOINT}api`)
     );
     const needMethod = (
       method !== 'GET'
     );
-    return url === `${environment.ENDPOINT}/users` || (needMethod && needUrl);
+    return (needMethod && needUrl);
   }
 }

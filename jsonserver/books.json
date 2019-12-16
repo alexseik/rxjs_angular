@@ -1,45 +1,48 @@
-{
-  "data": [
-    {
-      "isbn": "12341234",
-      "title": "libro 1",
-      "language": "spanish",
-      "authors": ["1", "2"],
-      "categories": ["sfy"]
-    }, {
-      "isbn": "22341234",
-      "title": "libro 2",
-      "language": "spanish",
-      "authors": ["5", "3"],
-      "categories": [
-        "sfy",
-        "kids"
-      ]
-    }, {
-      "isbn": "32341234",
-      "title": "libro 3",
-      "language": "spanish",
-      "authors": ["6", "4"],
-      "categories": [
-        "romance"
-      ]
-    }, {
-      "isbn": "42341234",
-      "title": "libro 4",
-      "language": "spanish",
-      "authors": ["9"],
-      "categories": [
-        "story",
-        "kids"
-      ]
-    }, {
-      "isbn": "52341234",
-      "title": "libro 5",
-      "language": "spanish",
-      "authors": ["7"],
-      "categories": [
-        "text"
-      ]
-    }
-  ]
-}
+[
+  {
+    "id": "1",
+    "isbn": "12341234",
+    "title": "libro 1",
+    "language": "spanish",
+    "authors": ["1", "2"],
+    "categories": ["sfy"]
+  }, {
+    "id": "2",
+    "isbn": "22341234",
+    "title": "libro 2",
+    "language": "spanish",
+    "authors": ["5", "3"],
+    "categories": [
+      "sfy",
+      "kids"
+    ]
+  }, {
+    "id": "3",
+    "isbn": "32341234",
+    "title": "libro 3",
+    "language": "spanish",
+    "authors": ["6", "4"],
+    "categories": [
+      "romance"
+    ]
+  }, {
+    "id": "4",
+    "isbn": "42341234",
+    "title": "libro 4",
+    "language": "spanish",
+    "authors": ["9"],
+    "categories": [
+      "story",
+      "kids"
+    ]
+  }, {
+    "id": "5",
+    "isbn": "52341234",
+    "title": "libro 5",
+    "language": "spanish",
+    "authors": ["7"],
+    "categories": [
+      "text"
+    ]
+  }
+]

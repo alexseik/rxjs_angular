@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, OnChanges, SimpleChanges, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormArray, ValidatorFn, ValidationErrors } from '@angular/forms';
 import { Book } from '../../models/book';
-
+import { BooksService } from '../../services/books.service';
 
 @Component({
   selector: 'app-book-form',
@@ -19,7 +19,7 @@ export class BookFormComponent implements OnInit, OnChanges {
 
   private model: Book = null;
 
-  constructor(private fb: FormBuilder) { }
+  constructor(private fb: FormBuilder, private booksService: BooksService) { }
 
   ngOnInit() {
     this.bookForm = this.fb.group({
@@ -29,14 +29,12 @@ export class BookFormComponent implements OnInit, OnChanges {
       categories: this.fb.array([]),
     }, { validators: this.authorEmptyValidator });
     if (this.book) {
-      this.updateModel(this.book);
+      this.reset();
     }
-    // this.authors.valueChanges.subscribe(v => 'authors change');
   }
 
   ngOnChanges(changes: SimpleChanges) {
     if (this.bookForm && changes.book && changes.book.currentValue) {
-      console.log('update book form', changes.book.currentValue);
       this.updateModel(changes.book.currentValue);
       this.bookForm.patchValue(this.model);
     }
@@ -52,16 +50,28 @@ export class BookFormComponent implements OnInit, OnChanges {
 
   submit() {
     if (this.bookForm.valid) {
-      this.save.emit(this.bookForm.value);
+      this.updateModel(this.bookForm.value);
+      this.booksService.saveBook(this.model);
+      this.save.emit(this.model);
     }
   }
 
   reset() {
-    this.updateModel(this.book);
+    this.model = Object.assign({ id: null }, this.model, this.book);
+    this.bookForm.patchValue({
+      isbn: this.model.isbn,
+      title: this.model.title
+    });
+    this.authors.controls = [];
+    this.categories.controls = [];
+    this.createOrUpdateControl(this.model, 'authors');
+    // this.createOrUpdateControl(this.model, 'categories');
+    this.book.categories.forEach(c => {
+      this.categories.push(this.fb.control(c, Validators.required));
+    });
   }
 
   addAuthor() {
-    console.log('tessstt addAuthor')
     this.authors.push(this.fb.control('', Validators.required));
   }
 
@@ -77,16 +87,25 @@ export class BookFormComponent implements OnInit, OnChanges {
     this.categories.controls.splice(i, 1);
   }
 
-  private updateModel(newModel) {
-    this.model = Object.assign({}, this.model, newModel);
-    this.bookForm.patchValue({
-      isbn: this.model.isbn,
-      title: this.model.title
-    });
-    this.authors.controls = [];
-    this.categories.controls = [];
-    this.createOrUpdateControl(this.model, 'authors');
-    this.createOrUpdateControl(this.model, 'categories');
+  private updateModel(formValue: any) {
+    const newModel: any = {};
+    if (this.book) {
+      const originalAuthors = this.book.authors ? this.book.authors : [];
+      const formAuthors = formValue.authors ? formValue.authors : [];
+      const updatedAuthors = formAuthors.map((author, index) => {
+        if (index < originalAuthors.length) {
+          return Object.assign({}, originalAuthors[index], { name: author });
+        }
+        return { name: author };
+      });
+      newModel.authors = updatedAuthors;
+      const formCategories = formValue.categories ? formValue.categories : [];
+      const updatedCategories = formCategories;
+      newModel.categories = updatedCategories;
+    }
+    newModel.isbn = formValue.isbn;
+    newModel.title = formValue.title;
+    this.model = Object.assign({ id: null }, this.model, newModel);
   }
 
   private authorEmptyValidator: ValidatorFn = (control: FormGroup): ValidationErrors | null => {

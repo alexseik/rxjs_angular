@@ -25,12 +25,16 @@ describe('AppComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [],
+      imports: [
+        HttpClientModule,
+        RouterTestingModule
+      ],
       declarations: [
         AppComponent
       ],
       schemas: [ NO_ERRORS_SCHEMA ]
-    }).compileComponents();
+    });
+    //.compileComponents();
   }));
 
   it('should create the app', () => {

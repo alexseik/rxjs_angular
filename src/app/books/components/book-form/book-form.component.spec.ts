@@ -4,18 +4,31 @@ import { BookFormComponent } from './book-form.component';
 import { FormArray, ReactiveFormsModule } from '@angular/forms';
 import { AngularMaterialModule } from '../../../shared/angular-material.module';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { DebugElement } from '@angular/core';
+import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { Book } from '../../models/book';
+import { HttpClientModule } from '@angular/common/http';
+import { BooksService } from '../../services/books.service';
 
 describe('BookFormComponent', () => {
+  let bookServiceStub: Partial<BooksService>;
+  bookServiceStub = {
+    saveBook: () => {}
+  };
   let component: BookFormComponent;
   let fixture: ComponentFixture<BookFormComponent>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [BookFormComponent],
-      imports: [ReactiveFormsModule, AngularMaterialModule, NoopAnimationsModule]
+      imports: [
+        ReactiveFormsModule,
+        AngularMaterialModule, 
+        NoopAnimationsModule, 
+        HttpClientModule
+      ],
+      schemas: [ NO_ERRORS_SCHEMA ],
+      providers: [{ provide: BooksService, useValue: bookServiceStub }]
     });
     fixture = TestBed.createComponent(BookFormComponent);
     component = fixture.componentInstance;

@@ -1,13 +1,14 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, combineLatest, Observable, Subject } from 'rxjs';
-import { map, takeUntil } from 'rxjs/operators';
+import { map, takeUntil, switchMap } from 'rxjs/operators';
 import { Book } from '../models/book';
 import { Author } from '../models/author';
 import { Category } from '../models/category';
+import { BookRequest } from '../models/book-request';
 
 // const BOOKS_API = 'http://localhost:3000/api/books';
-const AUTHORS_API = 'http://localhost:3000/api/authors';
+// const AUTHORS_API = 'http://localhost:3000/api/authors';
 
 @Injectable({
   providedIn: 'root'
@@ -15,6 +16,7 @@ const AUTHORS_API = 'http://localhost:3000/api/authors';
 export class BooksService implements OnDestroy {
 
   readonly BOOKS_API = 'http://localhost:3000/api/books';
+  readonly AUTHORS_API = 'http://localhost:3000/api/authors';
 
   // Outputs
   filteredBooks$ = new BehaviorSubject<Book[]>([]);
@@ -83,11 +85,11 @@ export class BooksService implements OnDestroy {
   getBooks(): void {
     combineLatest([
       this.http.get(this.BOOKS_API) as Observable<any>,
-      this.http.get(AUTHORS_API) as Observable<any>
+      this.http.get(this.AUTHORS_API) as Observable<any>
     ]).pipe(
       map(([booksResponse, authorsResponse]) => {
         return {
-          books: booksResponse.data.map(raw => this.buildBook(raw, authorsResponse)),
+          books: booksResponse.map(raw => this.buildBook(raw, authorsResponse)),
           authors: authorsResponse
         };
       }),
@@ -98,12 +100,57 @@ export class BooksService implements OnDestroy {
     });
   }
 
+  saveBook(book: Book) {
+    let obs: Observable<any>;
+    const authors = book.authors ? book.authors.filter(author => author.id).map(author => author.id) : [];
+    const newAuthors = book.authors ? book.authors.filter(author => !author.id) : [];
+    const categories = book.categories ? book.categories : [];
+    const bookRequest: BookRequest = {
+      title: book.title,
+      isbn: book.isbn,
+      authors,
+      categories
+    };
+    if (newAuthors && newAuthors.length > 0) {
+      obs = combineLatest(newAuthors.map(author => this.addAuthor(author)));
+    }
+    if (book.id) {
+      bookRequest.id = book.id;
+      if (obs) {
+        obs = obs.pipe(
+          switchMap((savedAuthors) => {
+            savedAuthors.forEach(element => {
+              bookRequest.authors.push(element.id);
+            });
+            return this.http.put(`${this.BOOKS_API}/${book.id}`, bookRequest);
+          })
+        );
+      } else {
+        obs = this.http.put(`${this.BOOKS_API}/${book.id}`, bookRequest);
+      }
+    } else {
+      if (obs) {
+        obs = obs.pipe(
+          switchMap(() => this.http.post(this.BOOKS_API, bookRequest))
+        );
+      } else {
+        obs = this.http.post(this.BOOKS_API, bookRequest);
+      }
+    }
+    obs.subscribe(() => this.getBooks());
+  }
+
+  addAuthor(author) {
+    return this.http.post(this.AUTHORS_API, author);
+  }
+
   private buildBook(book: any, authors: any[]) {
     const newBook = {
+      id: book.id,
       isbn: book.isbn,
       title: book.title,
       authors: authors.filter(author => book.authors.includes(author.id)),
-      categories: book.categories.map(c => ({name: c}))
+      categories: book.categories
     };
     return newBook;
   }
@@ -111,8 +158,10 @@ export class BooksService implements OnDestroy {
   private filter(books: Book[], title, author, category) {
     const filtered = books.filter(book => {
       const hasTitle = book.title.includes(title);
-      const hasAuthors = book.authors.map(a => a.name).filter(a => a.includes(author)).length > 0;
-      const hasCategory = book.categories.filter(c => c.name.includes(category));
+      const hasAuthors =
+        book.authors.map(a => a.name).filter(a => a.includes(author)).length > 0 || !book.authors || book.authors.length === 0;
+      const hasCategory =
+        book.categories.filter(c => c.includes(category)).length > 0 || !book.categories || book.categories.length === 0;
       return hasTitle && hasAuthors && hasCategory;
     });
     return filtered;

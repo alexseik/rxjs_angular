@@ -1,4 +1,4 @@
-import { fakeAsync, TestBed, tick } from '@angular/core/testing';
+import { fakeAsync, TestBed, tick, ComponentFixture } from '@angular/core/testing';
 import 'zone.js/dist/zone-patch-rxjs-fake-async';
 
 import { BooksService } from './books.service';
@@ -63,6 +63,7 @@ describe('BooksService', () => {
     const reqs = httpMock.match({ method: 'GET' });
     expect(reqs.length).toBe(2);
     reqs[1].flush(dummyAuthors); // se necesita porque se hace una peticion a authors
-    reqs[0].flush({ data: dummyBooks });
+    reqs[0].flush(dummyBooks);
+    tick();
   }));
 });

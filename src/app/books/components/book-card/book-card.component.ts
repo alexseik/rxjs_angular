@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Book } from '../../models/book';
 import { UserService } from '../../../core/services/user.service';
+import { BooksService } from '../../services/books.service';
 
 @Component({
   selector: 'app-book-card',

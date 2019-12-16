@@ -7,7 +7,7 @@
   </mat-form-field>
   <div formArrayName="authors" class="authors">
     <h3 i18n="book form | authors list title">Autores</h3>
-     <button class="add-author" color="primary" mat-button (click)="addAuthor()" i18n="book form | add author">Añadir</button>
+     <button class="add-author" type="button" color="primary" mat-button (click)="addAuthor()" i18n="book form | add author">Añadir</button>
     <div *ngFor="let author of authors.controls; let i=index" class="author-list">
       <mat-form-field>
         <input matInput [formControlName]="i">
@@ -19,7 +19,7 @@
   </div>
   <div formArrayName="categories">
     <h3 i18n="book form | categories list title">Categorias</h3>
-     <button color="primary" mat-button (click)="addCategory()" i18n="book form | add category">Añadir</button>
+     <button color="primary" type="button" mat-button (click)="addCategory()" i18n="book form | add category">Añadir</button>
     <div *ngFor="let category of categories.controls; let i=index" class="category-list">
       <mat-form-field>
         <input matInput [formControlName]="i">
@@ -31,6 +31,6 @@
   </div>
   <mat-toolbar class="footer">
     <button color="primary" mat-button type="submit">Guardar</button>
-    <button color="primary" mat-button (click)="reset()">Reset</button>
+    <button color="primary" mat-button type="button" (click)="reset()">Reset</button>
   </mat-toolbar>
 </form>
