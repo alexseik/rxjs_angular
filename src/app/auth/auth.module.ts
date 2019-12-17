@@ -5,8 +5,8 @@ import { LoginComponent } from './components/login/login.component';
 import { SharedModule } from '../shared/shared.module';
 import { AngularMaterialModule } from '../shared/angular-material.module';
 import { StoreModule } from '@ngrx/store';
-import * as fromLogin from './store/login.reducer';
-import { LoginEffects } from './store/login.effects';
+import * as fromAuth from './store/auth.reducer';
+import { AuthEffects } from './store/auth.effects';
 import { EffectsModule } from '@ngrx/effects';
 
 
@@ -15,8 +15,8 @@ import { EffectsModule } from '@ngrx/effects';
   imports: [
     SharedModule,
     // AuthRoutingModule,
-    StoreModule.forFeature('login', fromLogin.reducer),
-    EffectsModule.forFeature([LoginEffects]),
+    StoreModule.forFeature(fromAuth.authFeatureKey, fromAuth.authReducer),
+    EffectsModule.forFeature([AuthEffects]),
     AngularMaterialModule
   ],
   exports: [

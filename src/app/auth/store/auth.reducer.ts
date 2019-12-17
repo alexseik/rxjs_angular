@@ -1,5 +1,7 @@
-import { LoginActions, LoginActionTypes } from './login.actions';
+import { AuthActions, AuthActionTypes } from './auth.actions';
 import { createFeatureSelector, createSelector } from '@ngrx/store';
+
+export const authFeatureKey = 'auth';
 
 export interface AuthState {
   auth: any;
@@ -8,7 +10,7 @@ export interface AuthState {
   isLogged: boolean;
 }
 
-export const initialState: AuthState = {
+export const initialAuthState: AuthState = {
   auth: null,
   error: '',
   isLogging: false,
@@ -16,12 +18,12 @@ export const initialState: AuthState = {
 };
 
 
-export function reducer(state = initialState, action: LoginActions): AuthState {
+export function authReducer(state = initialAuthState, action: AuthActions): AuthState {
   switch (action.type) {
-    case LoginActionTypes.LoginAction: {
+    case AuthActionTypes.LoginAction: {
       return Object.assign({}, state, { auth: action.payload, isLogging: true, error: '' });
     }
-    case LoginActionTypes.LoginSuccessAction: {
+    case AuthActionTypes.LoginSuccessAction: {
       return Object.assign({}, state, {
         auth: action.payload,
         isLogging: false,
@@ -29,7 +31,7 @@ export function reducer(state = initialState, action: LoginActions): AuthState {
         error: ''
       });
     }
-    case LoginActionTypes.LoginFailureAction: {
+    case AuthActionTypes.LoginFailureAction: {
       return Object.assign({}, state, {
         auth: {},
         isLogging: false,
@@ -37,7 +39,7 @@ export function reducer(state = initialState, action: LoginActions): AuthState {
         error: 'La contraseña introducida para el usuario no es correcta'
       });
     }
-    case LoginActionTypes.LogoutAction: {
+    case AuthActionTypes.LogoutAction: {
       return {
         ...state,
         auth: null,
@@ -48,7 +50,7 @@ export function reducer(state = initialState, action: LoginActions): AuthState {
   }
 }
 
-export const selectLoginState = createFeatureSelector<AuthState>('login');
+export const selectLoginState = createFeatureSelector<AuthState>(authFeatureKey);
 
 export const getLoggedIn = createSelector(selectLoginState, (state: AuthState) => state.isLogged);
 

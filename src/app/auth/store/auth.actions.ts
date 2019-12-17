@@ -1,7 +1,7 @@
 import { Action } from '@ngrx/store';
 import { RequestAuth } from 'src/app/core/models/auth';
 
-export enum LoginActionTypes {
+export enum AuthActionTypes {
   LoginAction = '[Login] Action',
   LoginSuccessAction = '[Login] LoginSuccessAction',
   LoginFailureAction = '[Login] LoginFailureAction',
@@ -10,36 +10,36 @@ export enum LoginActionTypes {
 }
 
 export class Login implements Action {
-  readonly type = LoginActionTypes.LoginAction;
+  readonly type = AuthActionTypes.LoginAction;
 
   constructor(public payload: RequestAuth) {}
 }
 
 export class LoginSuccess implements Action {
-  readonly type = LoginActionTypes.LoginSuccessAction;
+  readonly type = AuthActionTypes.LoginSuccessAction;
 
   constructor(public payload: any) {}
 }
 
 export class LoginFailure implements Action {
-  readonly type = LoginActionTypes.LoginFailureAction;
+  readonly type = AuthActionTypes.LoginFailureAction;
 
   constructor(public payload: any) {}
 }
 
 export class LoginRedirect implements Action {
-  readonly type = LoginActionTypes.LoginRedirectAction;
+  readonly type = AuthActionTypes.LoginRedirectAction;
 
   constructor(public payload: any) {}
 }
 
 export class Logout implements Action {
-  readonly type = LoginActionTypes.LogoutAction;
+  readonly type = AuthActionTypes.LogoutAction;
 
   constructor(public payload: any) {}
 }
 
-export type LoginActions =
+export type AuthActions =
   | Login
   | LoginSuccess
   | LoginFailure

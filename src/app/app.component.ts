@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UserService } from './core/services/user.service';
 import { Store } from '@ngrx/store';
 import { State } from './store/reducers';
-import { selectAuth } from './auth/store/login.reducer';
+import { selectAuth } from './auth/store/auth.reducer';
 
 @Component({
   selector: 'app-root',

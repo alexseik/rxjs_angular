@@ -5,7 +5,7 @@ import { Store } from '@ngrx/store';
 import { State } from 'src/app/store/reducers';
 import { Observable } from 'rxjs';
 import { User } from 'src/app/core/models/user';
-import { selectAuth } from 'src/app/auth/store/login.reducer';
+import { selectAuth } from 'src/app/auth/store/auth.reducer';
 
 @Component({
   selector: 'app-book-card',

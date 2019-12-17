@@ -22,7 +22,7 @@ describe('BookCardComponent', () => {
     })
   };
 
-  beforeEach(async(() => {
+  beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [BookCardComponent],
       imports: [
@@ -34,9 +34,8 @@ describe('BookCardComponent', () => {
         provideMockStore({})
       ],
       schemas: [NO_ERRORS_SCHEMA],
-    })
-      .compileComponents();
-  }));
+    });
+  });
 
   beforeEach(() => {
     fixture = TestBed.createComponent(BookCardComponent);

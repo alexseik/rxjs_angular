@@ -4,8 +4,8 @@ import { Store } from '@ngrx/store';
 import { State } from 'src/app/store/reducers';
 import { Observable } from 'rxjs';
 import { User } from '../models/user';
-import { selectAuth } from 'src/app/auth/store/login.reducer';
-import { Logout } from 'src/app/auth/store/login.actions';
+import { selectAuth } from 'src/app/auth/store/auth.reducer';
+import { Logout } from 'src/app/auth/store/auth.actions';
 
 
 @Component({
