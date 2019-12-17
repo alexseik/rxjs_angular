@@ -1,7 +1,11 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Book } from '../../models/book';
 import { UserService } from '../../../core/services/user.service';
-import { BooksService } from '../../services/books.service';
+import { Store } from '@ngrx/store';
+import { State } from 'src/app/store/reducers';
+import { Observable } from 'rxjs';
+import { User } from 'src/app/core/models/user';
+import { selectAuth } from 'src/app/auth/store/login.reducer';
 
 @Component({
   selector: 'app-book-card',
@@ -14,9 +18,12 @@ export class BookCardComponent implements OnInit {
 
   mode: 'EDIT' | 'VIEW' = 'VIEW';
 
-  constructor(private userService: UserService) { }
+  user$: Observable<User>;
+
+  constructor(private userService: UserService, private store: Store<State>) { }
 
   ngOnInit() {
+    this.user$ = this.store.select(selectAuth);
   }
 
   isEditing() {

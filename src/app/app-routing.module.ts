@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule, PreloadAllModules } from '@angular/router';
 import { FilmsComponent } from './films/components/films/films.component';
-import { LoginComponent } from './auth/login/login.component';
+import { LoginComponent } from './auth/components/login/login.component';
 
 
 const routes: Routes = [

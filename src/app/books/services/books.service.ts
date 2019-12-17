@@ -71,7 +71,7 @@ export class BooksService implements OnDestroy {
             .filter((category, index) => index === allAuthorCategories.indexOf(category) && category.includes(categoryFilter));
         }
         return allBooksCategories
-          .filter((category, index) => index === allBooksCategories.indexOf(category) && category.includes(categoryFilter));
+          .filter((category, index) => category && index === allBooksCategories.indexOf(category) && category.includes(categoryFilter));
       }),
       takeUntil(this.destroy$)
     ).subscribe(this.filteredCategory$);

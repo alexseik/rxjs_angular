@@ -47,6 +47,17 @@ export class UserService {
       });
   }
 
+  loginWithRedux(creds: RequestAuth) {
+    return this.http.post(`${environment.ENDPOINT}${AUTH_URL}`, creds)
+    .pipe(
+      switchMap((user: AccessToken) => {
+        this.storage.set('token', `Bearer ${user.access_token}`);
+        return this.http.get(`${environment.ENDPOINT}${USERS_URL}/${user.id}`);
+      }),
+      take(1)
+    );
+  }
+
   logout() {
     this.storage.remove('token');
     this.user$.next(null);

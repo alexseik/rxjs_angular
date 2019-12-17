@@ -1,5 +1,6 @@
 <mat-card>
-  <div *ngIf="userService.user$ | async; else anonymous">
+  <!-- <div *ngIf="userService.user$ | async; else anonymous"> -->
+  <div *ngIf="user$ | async; else anonymous">
     <mat-card-actions>
       <button mat-button *ngIf="!isEditing(); else info" color="primary" (click)="changeMode('EDIT')">Editar</button>
       <ng-template #info>

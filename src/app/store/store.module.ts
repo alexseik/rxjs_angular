@@ -5,6 +5,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
 import { reducers, metaReducers } from './reducers';
 import { environment } from 'src/environments/environment';
+import { EffectsModule } from '@ngrx/effects';
 
 @NgModule({
   imports: [
@@ -17,10 +18,11 @@ import { environment } from 'src/environments/environment';
     }),
     !environment.production
       ? StoreDevtoolsModule.instrument({
-          name: 'Boream Example',
-          logOnly: environment.production
-        })
-      : []
+        name: 'Boream Example',
+        logOnly: environment.production
+      })
+      : [],
+    EffectsModule.forRoot([])
   ],
   exports: [StoreModule]
 })
