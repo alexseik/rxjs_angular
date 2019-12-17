@@ -7,6 +7,7 @@ import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { UserService } from 'src/app/core/services/user.service';
 import { BehaviorSubject } from 'rxjs';
 import { User } from 'src/app/core/models/user';
+import { provideMockStore } from '@ngrx/store/testing';
 
 describe('BookCardComponent', () => {
   let component: BookCardComponent;
@@ -28,7 +29,10 @@ describe('BookCardComponent', () => {
         HttpClientModule,
         RouterTestingModule
       ],
-      providers: [{ provide: UserService, useValue: userServiceStub }],
+      providers: [
+        { provide: UserService, useValue: userServiceStub },
+        provideMockStore({})
+      ],
       schemas: [NO_ERRORS_SCHEMA],
     })
       .compileComponents();

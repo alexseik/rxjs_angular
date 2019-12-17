@@ -1,11 +1,10 @@
 import { TestBed, async } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
+import { provideMockStore, MockStore } from '@ngrx/store/testing';
 import { AppComponent } from './app.component';
-import { CoreModule } from './core/core.module';
 import { HttpClientModule } from '@angular/common/http';
-import { MatSidenavModule } from '@angular/material';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { State } from './store/reducers';
 
 describe('AppComponent', () => {
   /*beforeEach(async(() => {
@@ -22,6 +21,7 @@ describe('AppComponent', () => {
       ],
     }).compileComponents();
   }));*/
+  let store: MockStore<State>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -31,6 +31,9 @@ describe('AppComponent', () => {
       ],
       declarations: [
         AppComponent
+      ],
+      providers: [
+        provideMockStore({})
       ],
       schemas: [ NO_ERRORS_SCHEMA ]
     });
