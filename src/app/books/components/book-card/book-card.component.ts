@@ -14,7 +14,7 @@ export class BookCardComponent implements OnInit {
 
   mode: 'EDIT' | 'VIEW' = 'VIEW';
 
-  constructor(private userService: UserService) { }
+  constructor(public userService: UserService) { }
 
   ngOnInit() {
   }
