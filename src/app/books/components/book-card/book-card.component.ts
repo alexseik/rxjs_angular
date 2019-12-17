@@ -20,7 +20,7 @@ export class BookCardComponent implements OnInit {
 
   user$: Observable<User>;
 
-  constructor(private userService: UserService, private store: Store<State>) { }
+  constructor(public userService: UserService, private store: Store<State>) { }
 
   ngOnInit() {
     this.user$ = this.store.select(selectAuth);
