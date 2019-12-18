@@ -2,12 +2,11 @@
 
   <span class="title" i18n="site header|An introduction header for this sample">Boream </span>
 
-  <span class="title"> {{(user$ | async)?.name}} </span>
+  <span class="user-name">{{(user$ | async)?.name}}</span>
 
   <nav>
     <li><a mat-button i18n="@@filmsLink" routerLink="/films">Pelis</a></li>
     <li><a mat-button i18n="@@booksLink" routerLink="/books">Libros</a></li>
-    <!--<li *ngIf="userService.user$ | async; else login">-->
     <li *ngIf="user$ | async; else login">
       <button mat-button i18n="@@logoutLink" (click)="logout()">Logout</button>
     </li>
