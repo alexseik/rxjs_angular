@@ -10,6 +10,7 @@ import { Book } from '../models/book';
 
 import * as fromBook from './book/book-reducer';
 import * as fromAuthor from './author/author-selectors';
+import { flatten, uniq } from 'lodash';
 
 
 export const selectBooksState = createFeatureSelector<BooksState>(booksFeatureKey);
@@ -47,11 +48,11 @@ function buildBook(book: BookRequest, allAuthors: { [id: string]: Author }): Boo
 export const selectBookList = createSelector(
   selectAllBooks,
   selectAuthorEntities,
-  ((books, authorMap) => books.map(book => buildBook(book, authorMap)))
+  (books, authorMap) => books.map(book => buildBook(book, authorMap))
 );
 
 function filterBooks(books: Book[], title, author, category) {
-  const filtered = books.filter(book => {
+  return books.filter(book => {
     const hasTitle = book.title.includes(title);
     const hasAuthors =
       book.authors.map(a => a.name).filter(a => a.includes(author)).length > 0 || !book.authors || book.authors.length === 0;
@@ -59,11 +60,27 @@ function filterBooks(books: Book[], title, author, category) {
       book.categories.filter(c => c.includes(category)).length > 0 || !book.categories || book.categories.length === 0;
     return hasTitle && hasAuthors && hasCategory;
   });
-  return filtered;
 }
 
 export const selectBookByList = createSelector(
   selectFeatureFilterState,
   selectBookList,
-  ((filter, books) => filterBooks(books, filter.title, filter.authorName, filter.category))
+  (filter, books) => filterBooks(books, filter.title, filter.authorName, filter.category)
+);
+
+
+function extractAuthors(books: Book[]) {
+  return flatten(books.map(book => book.authors));
+}
+export const selectFilterAuthors = createSelector(
+  selectBookByList,
+  (books) => extractAuthors(books)
+);
+
+function extractCategories(books: Book[]) {
+  return uniq(flatten(books.map(book => book.categories)));
+}
+export const selectFilterCategories = createSelector(
+  selectBookByList,
+  (books) => extractCategories(books)
 );

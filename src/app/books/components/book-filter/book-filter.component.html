@@ -7,7 +7,7 @@
   <mat-form-field>
     <input type="text" matInput [matAutocomplete]="authorAutocomplete" formControlName="author" placeholder="autor">
       <mat-autocomplete #authorAutocomplete>
-        <mat-option *ngFor="let author of booksService.filteredAuthors$ | async" [value]="author.name">
+        <mat-option *ngFor="let author of authors$ | async" [value]="author.name">
           {{ author.name }}
         </mat-option>
       </mat-autocomplete>
@@ -17,7 +17,7 @@
   <mat-form-field>
     <input type="text" matInput [matAutocomplete]="categoryAutocomplete" formControlName="category" placeholder="categoria">
     <mat-autocomplete #categoryAutocomplete>
-      <mat-option *ngFor="let category of booksService.filteredCategory$ | async" [value]="category">
+      <mat-option *ngFor="let category of categories$ | async" [value]="category">
         {{ category }}
       </mat-option>
     </mat-autocomplete>

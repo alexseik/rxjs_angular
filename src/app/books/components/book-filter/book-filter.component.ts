@@ -4,6 +4,9 @@ import { BooksService } from '../../services/books.service';
 import { BooksState } from '../../store/reducers';
 import { Store } from '@ngrx/store';
 import { setFilter } from '../../store/actions';
+import { Observable } from 'rxjs';
+import { Author } from '../../models/author';
+import { selectFilterAuthors, selectFilterCategories } from '../../store/selectors';
 
 @Component({
   selector: 'app-book-filter',
@@ -14,15 +17,9 @@ export class BookFilterComponent implements OnInit {
 
   bookFilter: FormGroup;
 
-  authors = [
-    'author 1',
-    'author 2'
-  ];
+  authors$: Observable<Author[]>;
 
-  categories = [
-    'category 1',
-    'category 2'
-  ];
+  categories$: Observable<string[]>;
 
   constructor(private fb: FormBuilder, public booksService: BooksService, private store: Store<BooksState>) {
   }
@@ -45,6 +42,9 @@ export class BookFilterComponent implements OnInit {
       // this.booksService.categoryChange$
       (value) => this.store.dispatch(setFilter({ filter: { category: value } }))
     );
+
+    this.authors$ = this.store.select(selectFilterAuthors);
+    this.categories$ = this.store.select(selectFilterCategories);
   }
 
 }
