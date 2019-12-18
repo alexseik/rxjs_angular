@@ -1,5 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { BooksService } from '../../services/books.service';
+import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Book } from '../../models/book';
 import { Store } from '@ngrx/store';
@@ -10,24 +9,17 @@ import { selectBookByList } from '../../store/selectors';
 @Component({
   selector: 'app-book-card-container',
   templateUrl: './book-card-container.component.html',
-  styleUrls: ['./book-card-container.component.scss'],
-  // providers: [BooksService]
+  styleUrls: ['./book-card-container.component.scss']
 })
-export class BookCardContainerComponent implements OnInit, OnDestroy {
+export class BookCardContainerComponent implements OnInit {
 
   books$: Observable<Book[]>;
 
-  constructor(private booksService: BooksService, private store: Store<BooksState>) { }
+  constructor(private store: Store<BooksState>) { }
 
   ngOnInit() {
-    // this.books$ = this.booksService.filteredBooks$;
     this.books$ = this.store.select(selectBookByList);
-    this.booksService.getBooks();
     this.store.dispatch(getAllBooks({}));
-  }
-
-  ngOnDestroy() {
-    // this.booksService.destroy$.next();
   }
 
 }

@@ -5,13 +5,9 @@ import { FormArray, ReactiveFormsModule } from '@angular/forms';
 import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { Book } from '../../models/book';
-import { BooksService } from '../../services/books.service';
+import { Store } from '@ngrx/store';
 
 describe('BookFormComponent', () => {
-  let bookServiceStub: Partial<BooksService>;
-  bookServiceStub = {
-    saveBook: () => {}
-  };
   let component: BookFormComponent;
   let fixture: ComponentFixture<BookFormComponent>;
 
@@ -22,7 +18,9 @@ describe('BookFormComponent', () => {
         ReactiveFormsModule
       ],
       schemas: [ NO_ERRORS_SCHEMA ],
-      providers: [{ provide: BooksService, useValue: bookServiceStub }]
+      providers: [{ provide: Store, useValue: {
+        dispatch: () => {}
+        } }]
     });
     fixture = TestBed.createComponent(BookFormComponent);
     component = fixture.componentInstance;
@@ -54,7 +52,7 @@ describe('BookFormComponent', () => {
     const title = formDe.query(By.css('h3'));
     const h3: HTMLElement = title.nativeElement;
     expect(h3.innerText).toBe('Autores');
-    const list = formDe.query(By.css('.author-list'))
+    const list = formDe.query(By.css('.author-list'));
     expect(list).toBeNull();
   });
 

@@ -1,37 +1,26 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { BookCardComponent } from './book-card.component';
 import { HttpClientModule } from '@angular/common/http';
-import { RouterTestingModule } from '@angular/router/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { UserService } from 'src/app/core/services/user.service';
-import { BehaviorSubject } from 'rxjs';
-import { User } from 'src/app/core/models/user';
-import { provideMockStore } from '@ngrx/store/testing';
+import { Store } from '@ngrx/store';
 
 describe('BookCardComponent', () => {
   let component: BookCardComponent;
   let fixture: ComponentFixture<BookCardComponent>;
 
-  let userServiceStub: Partial<UserService>;
-  userServiceStub = {
-    user$: new BehaviorSubject<User>({
-      id: '1',
-      name: 'asdf',
-      email: 'asdf'
-    })
-  };
-
   beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [BookCardComponent],
       imports: [
-        HttpClientModule,
-        RouterTestingModule
+        HttpClientModule
       ],
       providers: [
-        { provide: UserService, useValue: userServiceStub },
-        provideMockStore({})
+        { provide: Store,
+          useValue: {
+            select: () => {}
+          }
+        }
       ],
       schemas: [NO_ERRORS_SCHEMA],
     });

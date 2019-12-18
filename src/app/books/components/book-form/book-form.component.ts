@@ -1,7 +1,6 @@
 import { Component, OnInit, Input, OnChanges, SimpleChanges, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormArray, ValidatorFn, ValidationErrors } from '@angular/forms';
 import { Book } from '../../models/book';
-import { BooksService } from '../../services/books.service';
 import * as actions from '../../store/actions';
 import { BooksState } from '../../store/reducers';
 import { Store } from '@ngrx/store';

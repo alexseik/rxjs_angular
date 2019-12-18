@@ -2,9 +2,8 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { BookCardContainerComponent } from './book-card-container.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { provideMockStore } from '@ngrx/store/testing';
+import { Store } from '@ngrx/store';
 
 describe('BookCardContainerComponent', () => {
   let component: BookCardContainerComponent;
@@ -13,12 +12,12 @@ describe('BookCardContainerComponent', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [BookCardContainerComponent],
-      imports: [ReactiveFormsModule, HttpClientModule, provideMockStore({})],
+      imports: [
+        ReactiveFormsModule
+      ],
+      providers: [{ provide: Store, useValue: { dispatch: () => {}, select: () => {}}}],
       schemas: [NO_ERRORS_SCHEMA]
     });
-  });
-
-  beforeEach(() => {
     fixture = TestBed.createComponent(BookCardContainerComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
