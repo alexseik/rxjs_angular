@@ -1,26 +1,22 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { BookCardContainerComponent } from './book-card-container.component';
-import { BookCardComponent } from '../book-card/book-card.component';
-import { AngularMaterialModule } from '../../../shared/angular-material.module';
 import { ReactiveFormsModule } from '@angular/forms';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { BookFormComponent } from '../book-form/book-form.component';
 import { HttpClientModule } from '@angular/common/http';
-import { BookFilterComponent } from '../book-filter/book-filter.component';
-import { BookInfoComponent } from '../book-info/book-info.component';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { provideMockStore } from '@ngrx/store/testing';
 
 describe('BookCardContainerComponent', () => {
   let component: BookCardContainerComponent;
   let fixture: ComponentFixture<BookCardContainerComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [BookCardContainerComponent, BookCardComponent, BookFormComponent, BookFilterComponent, BookInfoComponent],
-      imports: [ReactiveFormsModule, AngularMaterialModule, NoopAnimationsModule, HttpClientModule]
-    })
-      .compileComponents();
-  }));
+      declarations: [BookCardContainerComponent],
+      imports: [ReactiveFormsModule, HttpClientModule, provideMockStore({})],
+      schemas: [NO_ERRORS_SCHEMA]
+    });
+  });
 
   beforeEach(() => {
     fixture = TestBed.createComponent(BookCardContainerComponent);

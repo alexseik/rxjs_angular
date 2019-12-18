@@ -2,6 +2,9 @@ import { Component, OnInit, Input, OnChanges, SimpleChanges, Output, EventEmitte
 import { FormBuilder, FormGroup, Validators, FormArray, ValidatorFn, ValidationErrors } from '@angular/forms';
 import { Book } from '../../models/book';
 import { BooksService } from '../../services/books.service';
+import * as actions from '../../store/actions';
+import { BooksState } from '../../store/reducers';
+import { Store } from '@ngrx/store';
 
 @Component({
   selector: 'app-book-form',
@@ -19,7 +22,7 @@ export class BookFormComponent implements OnInit, OnChanges {
 
   private model: Book = null;
 
-  constructor(private fb: FormBuilder, private booksService: BooksService) { }
+  constructor(private fb: FormBuilder, private store: Store<BooksState>) { }
 
   ngOnInit() {
     this.bookForm = this.fb.group({
@@ -51,7 +54,8 @@ export class BookFormComponent implements OnInit, OnChanges {
   submit() {
     if (this.bookForm.valid) {
       this.updateModel(this.bookForm.value);
-      this.booksService.saveBook(this.model);
+      // this.booksService.saveBook(this.model);
+      this.store.dispatch(actions.saveBook({ book: this.model }))
       this.save.emit(this.model);
     }
   }

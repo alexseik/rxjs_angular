@@ -140,6 +140,46 @@ export class BooksService implements OnDestroy {
     obs.subscribe(() => this.getBooks());
   }
 
+  ngRxSaveBook(book: Book) {
+    let obs: Observable<any>;
+    const authors = book.authors ? book.authors.filter(author => author.id).map(author => author.id) : [];
+    const newAuthors = book.authors ? book.authors.filter(author => !author.id) : [];
+    const categories = book.categories ? book.categories : [];
+    const bookRequest: BookRequest = {
+      title: book.title,
+      isbn: book.isbn,
+      authors,
+      categories
+    };
+    if (newAuthors && newAuthors.length > 0) {
+      obs = combineLatest(newAuthors.map(author => this.addAuthor(author)));
+    }
+    if (book.id) {
+      bookRequest.id = book.id;
+      if (obs) {
+        obs = obs.pipe(
+          switchMap((savedAuthors) => {
+            savedAuthors.forEach(element => {
+              bookRequest.authors.push(element.id);
+            });
+            return this.http.put(`${this.BOOKS_API}/${book.id}`, bookRequest);
+          })
+        );
+      } else {
+        obs = this.http.put(`${this.BOOKS_API}/${book.id}`, bookRequest);
+      }
+    } else {
+      if (obs) {
+        obs = obs.pipe(
+          switchMap(() => this.http.post(this.BOOKS_API, bookRequest))
+        );
+      } else {
+        obs = this.http.post(this.BOOKS_API, bookRequest);
+      }
+    }
+    return obs;
+  }
+
   addAuthor(author) {
     return this.http.post(this.AUTHORS_API, author);
   }

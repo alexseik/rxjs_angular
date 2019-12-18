@@ -6,6 +6,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import 'zone.js/dist/zone-patch-rxjs-fake-async';
+import { provideMockStore } from '@ngrx/store/testing';
 
 describe('BookFilterComponent', () => {
   let component: BookFilterComponent;
@@ -22,7 +23,7 @@ describe('BookFilterComponent', () => {
     TestBed.configureTestingModule({
       declarations: [ BookFilterComponent ],
       imports: [ReactiveFormsModule],
-      providers: [ {provide: BooksService, useValue: booksServiceStub } ],
+      providers: [ {provide: BooksService, useValue: booksServiceStub }, provideMockStore({}) ],
       schemas: [ NO_ERRORS_SCHEMA ]
     });
     fixture = TestBed.createComponent(BookFilterComponent);
