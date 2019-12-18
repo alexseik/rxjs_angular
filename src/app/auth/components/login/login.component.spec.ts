@@ -2,43 +2,57 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { LoginComponent } from './login.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import { provideMockStore } from '@ngrx/store/testing';
-import { HttpClientModule } from '@angular/common/http';
-import { RouterTestingModule } from '@angular/router/testing';
-import { UserService } from 'src/app/core/services/user.service';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { Login } from '../../store/auth.actions';
 
 describe('LoginComponent', () => {
-  let userServiceStub: Partial<UserService>;
-  userServiceStub = {
-    login: () => { }
-  };
   let component: LoginComponent;
   let fixture: ComponentFixture<LoginComponent>;
+  let store;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [LoginComponent],
       imports: [
-        ReactiveFormsModule,
-        HttpClientModule,
-        RouterTestingModule
+        ReactiveFormsModule
       ],
       schemas: [NO_ERRORS_SCHEMA],
-      providers: [
-        { provide: UserService, useValue: userServiceStub },
-        provideMockStore({})
-      ]
+      providers: [{ provide: Store, useValue: {
+        dispatch: () => {}
+        }}]
     });
-  });
-
-  beforeEach(() => {
     fixture = TestBed.createComponent(LoginComponent);
+    store = TestBed.get<Store<any>>(Store);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should dispatch Login action on submit', () => {
+    spyOn(store, 'dispatch');
+    const creds = {
+      email: 'a',
+      password: 'a'
+    };
+    component.loginForm.get('email').setValue(creds.email);
+    component.loginForm.get('password').setValue(creds.password);
+    component.submit();
+    expect(store.dispatch).toHaveBeenCalledWith(new Login(creds));
+  });
+
+  it('not should dispatch Login action if form is invalid', () => {
+    spyOn(store, 'dispatch');
+    const creds = {
+      email: '',
+      password: 'a'
+    };
+    component.loginForm.get('email').setValue(creds.email);
+    component.loginForm.get('password').setValue(creds.password);
+    component.submit();
+    expect(store.dispatch).not.toHaveBeenCalled();
   });
 });

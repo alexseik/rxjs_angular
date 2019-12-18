@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms'
 import { UserService } from '../../../core/services/user.service';
 import { RequestAuth } from '../../../core/models/auth';
 import { Store } from '@ngrx/store';
@@ -17,7 +17,6 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private userService: UserService,
     private store: Store<AuthState>) { }
 
   ngOnInit() {
