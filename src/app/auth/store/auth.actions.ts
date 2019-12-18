@@ -1,3 +1,4 @@
+// MODO VIEJUNO DE DEFINIR LAS ACCIONES versiones < 7.x
 import { Action } from '@ngrx/store';
 import { RequestAuth } from 'src/app/core/models/auth';
 

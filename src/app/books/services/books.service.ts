@@ -144,7 +144,15 @@ export class BooksService implements OnDestroy {
     return this.http.post(this.AUTHORS_API, author);
   }
 
-  private buildBook(book: any, authors: any[]) {
+  ngRxLoadBooks(): Observable<BookRequest[]> {
+    return this.http.get(this.BOOKS_API) as Observable<BookRequest[]>;
+  }
+
+  ngRxLoadAuthors(): Observable<Author[]> {
+    return this.http.get(this.AUTHORS_API) as Observable<Author[]>;
+  }
+
+  public buildBook(book: any, authors: any[]) {
     const newBook = {
       id: book.id,
       isbn: book.isbn,
@@ -155,7 +163,7 @@ export class BooksService implements OnDestroy {
     return newBook;
   }
 
-  private filter(books: Book[], title, author, category) {
+  public filter(books: Book[], title, author, category) {
     const filtered = books.filter(book => {
       const hasTitle = book.title.includes(title);
       const hasAuthors =

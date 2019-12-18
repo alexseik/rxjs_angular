@@ -9,7 +9,7 @@
 <mat-card-content>
   <div>
     <span>Authors: </span>
-    <span *ngFor="let author of book.authors; let i = index">{{ i > 0 ? ',' : ''}} {{author.name}}</span>
+    <span *ngFor="let author of book.authors; let i = index">{{ i > 0 ? ',' : ''}} {{author?.name}}</span>
   </div>
   <div>
     <span>Categories: </span>

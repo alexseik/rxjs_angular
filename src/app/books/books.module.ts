@@ -8,6 +8,10 @@ import { AngularMaterialModule } from '../shared/angular-material.module';
 import { HttpClientModule } from '@angular/common/http';
 import { BookFilterComponent } from './components/book-filter/book-filter.component';
 import { BookInfoComponent } from './components/book-info/book-info.component';
+import { StoreModule } from '@ngrx/store';
+import * as fromBooks from './store/reducers';
+import { BooksEffects } from './store/effects';
+import { EffectsModule } from '@ngrx/effects';
 
 
 
@@ -23,7 +27,9 @@ import { BookInfoComponent } from './components/book-info/book-info.component';
     SharedModule,
     AngularMaterialModule,
     HttpClientModule,
-    BooksRoutingModule
+    BooksRoutingModule,
+    StoreModule.forFeature(fromBooks.booksFeatureKey, fromBooks.reducers ),
+    EffectsModule.forFeature([BooksEffects])
   ]
 })
 export class BooksModule { }
