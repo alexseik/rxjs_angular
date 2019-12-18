@@ -4,6 +4,7 @@
 
 export const environment = {
   production: false,
+  hmr: false,
   ENDPOINT: 'http://localhost:3000/'
 };
 
