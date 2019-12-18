@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { BooksService } from '../../services/books.service';
 import { BooksState } from '../../store/reducers';
 import { Store } from '@ngrx/store';
 import { setFilter } from '../../store/actions';
@@ -21,7 +20,7 @@ export class BookFilterComponent implements OnInit {
 
   categories$: Observable<string[]>;
 
-  constructor(private fb: FormBuilder, public booksService: BooksService, private store: Store<BooksState>) {
+  constructor(private fb: FormBuilder, private store: Store<BooksState>) {
   }
 
   ngOnInit() {
