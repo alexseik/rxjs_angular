@@ -5,7 +5,7 @@ import { Book } from '../../models/book';
 import { Store } from '@ngrx/store';
 import { BooksState } from '../../store/reducers';
 import { getAllBooks } from '../../store/actions';
-import { selectBookList } from '../../store/selectors';
+import { selectBookByList } from '../../store/selectors';
 
 @Component({
   selector: 'app-book-card-container',
@@ -21,7 +21,7 @@ export class BookCardContainerComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     // this.books$ = this.booksService.filteredBooks$;
-    this.books$ = this.store.select(selectBookList);
+    this.books$ = this.store.select(selectBookByList);
     this.booksService.getBooks();
     this.store.dispatch(getAllBooks({}));
   }

@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { BooksService } from '../../services/books.service';
+import { BooksState } from '../../store/reducers';
+import { Store } from '@ngrx/store';
+import { setFilter } from '../../store/actions';
 
 @Component({
   selector: 'app-book-filter',
@@ -21,7 +24,7 @@ export class BookFilterComponent implements OnInit {
     'category 2'
   ];
 
-  constructor(private fb: FormBuilder, public booksService: BooksService) {
+  constructor(private fb: FormBuilder, public booksService: BooksService, private store: Store<BooksState>) {
   }
 
   ngOnInit() {
@@ -30,9 +33,18 @@ export class BookFilterComponent implements OnInit {
       category: [''],
       title: ['']
     });
-    this.bookFilter.get('title').valueChanges.subscribe(this.booksService.titleChange$);
-    this.bookFilter.get('author').valueChanges.subscribe(this.booksService.authorChange$);
-    this.bookFilter.get('category').valueChanges.subscribe(this.booksService.categoryChange$);
+    this.bookFilter.get('title').valueChanges.subscribe(
+      // this.booksService.titleChange$
+      (value) => this.store.dispatch(setFilter({ filter: { title: value } }))
+    );
+    this.bookFilter.get('author').valueChanges.subscribe(
+      // this.booksService.authorChange$
+      (value) => this.store.dispatch(setFilter({ filter: { authorName: value } }))
+    );
+    this.bookFilter.get('category').valueChanges.subscribe(
+      // this.booksService.categoryChange$
+      (value) => this.store.dispatch(setFilter({ filter: { category: value } }))
+    );
   }
 
 }
