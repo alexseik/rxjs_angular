@@ -1,6 +1,6 @@
 import { InjectionToken } from '@angular/core';
 
-import { ActionReducerMap, createReducer, on } from '@ngrx/store';
+import { ActionReducerMap, createReducer, on, Action } from '@ngrx/store';
 
 
 import * as actions from './actions';
@@ -22,13 +22,17 @@ export const booksFeatureInitialState: BooksFeatureState = {
   }
 };
 
-export const booksFeatureReducer = createReducer(
+const booksFeatureReducer = createReducer(
   booksFeatureInitialState,
   on(actions.setFilter, (state, { filter }) => {
     const newFilter = Object.assign({}, state.filter, filter);
     return Object.assign({}, state, { filter: newFilter });
   })
 );
+
+export function booksReducer(state: BooksFeatureState | undefined, action: Action) {
+  return booksFeatureReducer(state, action);
+}
 
 export interface BooksState {
   books: fromBook.BookState;
@@ -43,7 +47,7 @@ export const BOOKS_REDUCER_TOKEN = new InjectionToken<
 export const reducers: ActionReducerMap<BooksState> = {
   books: fromBook.reducer,
   authors: fromAuthor.reducer,
-  feature: booksFeatureReducer
+  feature: booksReducer
 };
 
 
