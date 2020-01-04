@@ -4,7 +4,7 @@ import {
   on
 } from '@ngrx/store';
 import { EntityState, EntityAdapter, createEntityAdapter } from '@ngrx/entity';
-import * as BooksActions from './book-actions';
+import * as BooksActions from './book.actions';
 import { BookRequest } from '../../models/book-request';
 
 

@@ -34,7 +34,7 @@ describe('AuthEffects', () => {
   it('should dispatch LoginSuccess', () => {
     const loginAction = new Login({ email: '', password: ''});
     actions$ = hot('--a-', { a: loginAction});
-    userServiceStub.loginWithRedux.and.returnValue(
+    service.loginWithRedux.and.returnValue(
       cold('--b|', { b: { name: 'alex' } })
     );
 
@@ -46,6 +46,6 @@ describe('AuthEffects', () => {
       effects.doLogin$
     ).toBeObservable(expected);
 
-    expect(userServiceStub.loginWithRedux).toHaveBeenCalledWith({ email: '', password: ''});
+    expect(service.loginWithRedux).toHaveBeenCalledWith({ email: '', password: ''});
   });
 });

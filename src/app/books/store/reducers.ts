@@ -4,7 +4,7 @@ import { ActionReducerMap, createReducer, on, Action } from '@ngrx/store';
 
 
 import * as actions from './actions';
-import * as fromBook from './book/book-reducer';
+import * as fromBook from './book/book.reducer';
 import * as fromAuthor from './author/author-reducer';
 import { BookFilter } from '../models/book-filter';
 

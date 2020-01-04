@@ -8,7 +8,7 @@ import { Author } from '../models/author';
 
 import { Book } from '../models/book';
 
-import * as fromBook from './book/book-reducer';
+import * as fromBook from './book/book.reducer';
 import * as fromAuthor from './author/author-selectors';
 import { flatten, uniq } from 'lodash';
 

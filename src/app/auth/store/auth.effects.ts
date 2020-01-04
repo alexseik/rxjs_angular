@@ -9,19 +9,10 @@ import { of } from 'rxjs';
 export class AuthEffects {
 
   doLogin$ = createEffect(() => this.actions$.pipe(
-    map(v => {
-      debugger
-      return v;
-    }),
     ofType(AuthActionTypes.LoginAction),
-    switchMap((action) => {
-      debugger
-      return this.userService.loginWithRedux(action.payload)
-    }),
+    switchMap(action => this.userService.loginWithRedux(action.payload)),
     map((user) => new LoginSuccess(user)),
-    catchError(() => {
-      return of({ type: AuthActionTypes.LoginFailureAction });
-    })
+    catchError(() => of({ type: AuthActionTypes.LoginFailureAction }))
   ));
 
   constructor(
