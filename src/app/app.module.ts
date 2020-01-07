@@ -10,13 +10,16 @@ import { MatSidenavModule } from '@angular/material';
 import { FilmsModule } from './films/films.module';
 import { AuthModule } from './auth/auth.module';
 import { AppStoreModule } from './store/store.module';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
     AppComponent
   ],
   imports: [
-    BrowserModule,
+    BrowserModule.withServerTransition({ appId: 'serverApp' }),
     AppRoutingModule,
     BrowserAnimationsModule,
     HttpClientModule,
@@ -24,7 +27,9 @@ import { AppStoreModule } from './store/store.module';
     MatSidenavModule,
     AuthModule,
     FilmsModule,
-    AppStoreModule
+    AppStoreModule,
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
+    RouterModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -3,6 +3,7 @@ import { UserService } from './core/services/user.service';
 import { Store } from '@ngrx/store';
 import { State } from './store/reducers';
 import { selectAuth } from './auth/store/auth.reducer';
+import { LogUpdateService } from './log-update.service';
 
 @Component({
   selector: 'app-root',
@@ -13,7 +14,7 @@ export class AppComponent implements OnInit {
   title = 'rxjs';
   loginOpen = false;
 
-  constructor(private userService: UserService, private store: Store<State>) {
+  constructor(private userService: UserService, private store: Store<State>, private logUpdate: LogUpdateService) {
   }
 
   ngOnInit() {
